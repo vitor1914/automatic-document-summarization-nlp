@@ -1,99 +1,250 @@
-# Automatic Document Summarization NLP
+# Enterprise Sales Intelligence Platform
 
-[Português](#português) | [English](#english)
+🇧🇷 Português | 🇺🇸 English
 
-## Português
+## 🇧🇷 Sobre o projeto
 
-Projeto de Processamento de Linguagem Natural (NLP) para resumir documentos automaticamente usando sumarização extrativa. O sistema seleciona frases representativas do texto original com TF-IDF e similaridade de cosseno, mantendo a ordem das frases selecionadas.
+Plataforma de análise de vendas desenvolvida para praticar engenharia de dados, análise de dados, bancos de dados relacionais, APIs REST, visualização de indicadores e testes automatizados.
 
-### Funcionalidades
-- Entrada por texto ou arquivos TXT, PDF e DOCX.
-- Ajuste da proporção do resumo e limite opcional de frases.
-- Dashboard interativo com comparação entre original e resumo.
-- Download do resumo em TXT.
-- API REST com FastAPI.
-- Estatísticas de caracteres, palavras, frases e redução de palavras.
-- Testes com pytest e integração contínua via GitHub Actions.
+O projeto utiliza dados fictícios de clientes, produtos e pedidos para construir um pipeline ETL, calcular indicadores comerciais e apresentar os resultados em um dashboard interativo.
 
-### Requisitos
-Python 3.10 ou superior.
+## Funcionalidades
 
-### Instalação no Ubuntu / VS Code
+- Geração reproduzível de dados sintéticos.
+- Pipeline ETL com validação, limpeza e relatório de qualidade.
+- Banco de dados SQLite com chaves estrangeiras e índices.
+- Indicadores de faturamento, pedidos concluídos, unidades vendidas e ticket médio.
+- Análise de faturamento mensal e produtos mais vendidos.
+- API REST desenvolvida com FastAPI.
+- Dashboard interativo com Streamlit e Plotly.
+- Exportação de dados filtrados para CSV.
+- Testes automatizados com pytest.
+- Integração contínua com GitHub Actions.
+
+## Tecnologias
+
+- Python
+- Pandas
+- NumPy
+- SQLite
+- FastAPI
+- Streamlit
+- Plotly
+- Pytest
+- GitHub Actions
+- SQL
+
+## Estrutura
+
+```text
+dashboard/     Aplicação de visualização
+data/          Dados de entrada e arquivos processados
+database/      Esquema SQL
+docs/          Documentação e planejamento
+reports/       Relatórios gerados
+src/           Código-fonte e pipeline ETL
+tests/         Testes automatizados
+.github/       Fluxos de integração contínua
+```
+
+## Requisitos
+
+- Python 3.12 ou compatível
+- pip
+- Git
+
+## Instalação
+
+Crie e ative um ambiente virtual:
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
+```
+
+Instale as dependências:
+
+```bash
 pip install -r requirements.txt
 ```
 
-### Executar dashboard
+## Executar o pipeline
+
+Gere os dados fictícios:
+
+```bash
+python -m src.data_generator
+```
+
+Execute o ETL:
+
+```bash
+python -m src.pipeline
+```
+
+O banco SQLite será criado em `data/processed/sales.db`, e o relatório de qualidade será salvo em `reports/data_quality_report.json`.
+
+## Executar o dashboard
 
 ```bash
 streamlit run dashboard/app.py
 ```
 
-### Executar API
+## Executar a API
 
 ```bash
 uvicorn src.api:app --reload
 ```
 
-Abra `http://127.0.0.1:8000/docs` para testar a API. Endpoint principal: `POST /summarize` com JSON contendo `text`, `ratio` opcional e `max_sentences` opcional.
+Documentação interativa da API:
 
-### Testes
+- `/docs` — documentação Swagger
+- `/redoc` — documentação ReDoc
+
+Endpoints principais:
+
+- `GET /health`
+- `GET /regions`
+- `GET /kpis`
+- `GET /kpis?region=Southeast`
+- `GET /sales/top-products`
+- `GET /sales/top-products?limit=5&region=Southeast`
+
+## Executar os testes
 
 ```bash
-pytest -q
+pytest -v
 ```
 
-### Limitações
-A abordagem é extrativa: seleciona frases existentes, não cria paráfrases. A qualidade depende do texto e da segmentação. PDFs digitalizados como imagem precisam de OCR, que não está incluído.
+## Regras dos indicadores
 
-## English
+O faturamento e os indicadores comerciais consideram somente pedidos com status `completed`. O ticket médio é calculado dividindo o faturamento pelo número de pedidos concluídos. Os dados utilizados são sintéticos e não representam transações reais.
 
-An NLP project that automatically summarizes documents using extractive summarization. It ranks sentences with TF-IDF vectors and cosine similarity, selects representative sentences, and preserves their original order.
+## Próximas melhorias
 
-### Features
-- Text input or TXT, PDF, and DOCX files.
-- Adjustable summary ratio and optional sentence limit.
-- Interactive dashboard comparing source text and summary.
-- Download summaries as TXT.
-- REST API powered by FastAPI.
-- Character, word, sentence, and word-reduction statistics.
-- Pytest suite and GitHub Actions CI.
+- Suporte a PostgreSQL.
+- Contêineres com Docker.
+- Logging estruturado.
+- Maior cobertura de testes.
+- Previsão de vendas.
+- Implantação em nuvem.
 
-### Requirements
-Python 3.10 or newer.
+---
 
-### Install
+## 🇺🇸 About the project
+
+A sales analytics platform built to practice data engineering, data analysis, relational databases, REST APIs, business intelligence, and automated testing.
+
+The project uses synthetic customer, product, and order data to implement an ETL pipeline, calculate sales KPIs, and display results in an interactive dashboard.
+
+## Features
+
+- Reproducible synthetic data generation.
+- ETL pipeline with data validation, cleaning, and quality reporting.
+- SQLite database with foreign keys and indexes.
+- Revenue, completed orders, units sold, and average order value KPIs.
+- Monthly revenue and top-selling product analysis.
+- REST API built with FastAPI.
+- Interactive Streamlit and Plotly dashboard.
+- Filtered CSV export.
+- Automated tests with pytest.
+- Continuous integration with GitHub Actions.
+
+## Technologies
+
+- Python
+- Pandas
+- NumPy
+- SQLite
+- FastAPI
+- Streamlit
+- Plotly
+- Pytest
+- GitHub Actions
+- SQL
+
+## Requirements
+
+- Python 3.12 or compatible
+- pip
+- Git
+
+## Installation
+
+Create and activate a virtual environment:
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-### Run the dashboard
+## Run the pipeline
+
+Generate synthetic data:
+
+```bash
+python -m src.data_generator
+```
+
+Run the ETL pipeline:
+
+```bash
+python -m src.pipeline
+```
+
+The SQLite database is created at `data/processed/sales.db`. The quality report is written to `reports/data_quality_report.json`.
+
+## Run the dashboard
 
 ```bash
 streamlit run dashboard/app.py
 ```
 
-### Run the API
+## Run the API
 
 ```bash
 uvicorn src.api:app --reload
 ```
 
-Open `http://127.0.0.1:8000/docs` to explore the API. The main endpoint is `POST /summarize`, accepting `text`, optional `ratio`, and optional `max_sentences`.
+Interactive API documentation:
 
-### Tests
+- `/docs` — Swagger documentation
+- `/redoc` — ReDoc documentation
+
+Main endpoints:
+
+- `GET /health`
+- `GET /regions`
+- `GET /kpis`
+- `GET /kpis?region=Southeast`
+- `GET /sales/top-products`
+- `GET /sales/top-products?limit=5&region=Southeast`
+
+## Run tests
 
 ```bash
-pytest -q
+pytest -v
 ```
 
-### Limitations
-This is an extractive method: it selects existing sentences instead of generating paraphrases. Quality depends on the source text and sentence segmentation. OCR for scanned PDFs is not included.
+## KPI definitions
+
+Revenue and sales KPIs include only orders with `completed` status. Average order value is calculated as revenue divided by the number of completed orders. All data is synthetic and does not represent real transactions.
+
+## Future improvements
+
+- PostgreSQL support.
+- Docker containers.
+- Structured logging.
+- Expanded test coverage.
+- Sales forecasting.
+- Cloud deployment.
+
+## License
+
+This project is available for educational and portfolio purposes. Add a license file if you intend to distribute it under specific terms.
